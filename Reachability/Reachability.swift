@@ -119,7 +119,7 @@ open class Reachability: NSObject {
     self.init(reachabilityRef: ref)
   }
     
-  class func reachabilityForInternetConnection() -> Reachability? {
+  public class func reachabilityForInternetConnection() -> Reachability? {
   
     var zeroAddress = sockaddr()
     zeroAddress.sa_len = UInt8(MemoryLayout<sockaddr>.size)
