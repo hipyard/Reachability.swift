@@ -50,7 +50,7 @@ func callback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFl
   }
 }
 
-open class Reachability:NSObject {
+open class Reachability: NSObject {
   
   public typealias NetworkReachable = (Reachability) -> ()
   public typealias NetworkUnreachable = (Reachability) -> ()
@@ -118,9 +118,9 @@ open class Reachability:NSObject {
     
     self.init(reachabilityRef: ref)
   }
-  
-  public convenience init?(_: Void) {
     
+  class func reachabilityForInternetConnection() -> Reachability? {
+  
     var zeroAddress = sockaddr()
     zeroAddress.sa_len = UInt8(MemoryLayout<sockaddr>.size)
     zeroAddress.sa_family = sa_family_t(AF_INET)
@@ -129,7 +129,7 @@ open class Reachability:NSObject {
       SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
     }) else { return nil }
     
-    self.init(reachabilityRef: ref)
+    return self.init(reachabilityRef: ref)
   }
   
   deinit {
